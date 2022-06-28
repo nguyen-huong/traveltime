@@ -16,10 +16,10 @@ speed = list(data["Speed (MPH)"])
 date = list(data['LOCAL TIME'])
 date2 = list(data['LOCAL DATE'])
 
-feature = folium.FeatureGroup(name = "Travel Time Map with Permanent Stamps")
+feature = folium.FeatureGroup(name = "Travel Time Map")
 
 #change map center with the avg of the data
-map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start=12)
+map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start = 12)
 
 #add a marker for each point, include permanent time stamp
 for lt, ln, s, t, dt in zip(lat, long, speed, date, date2):
