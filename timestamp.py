@@ -33,4 +33,4 @@ map = create_legend(map , 'Speed - MPH',
 #display data points on the map and export
 map.add_child(fg)
 folium.LayerControl().add_to(map)
-map.save("map.html")
+map.save("timestamp.html")
