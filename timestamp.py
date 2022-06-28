@@ -5,7 +5,7 @@ import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from tasks.py import *
+from tasks import *
 
 #change data path here
 data = read_data('data/data.csv')
