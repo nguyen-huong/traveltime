@@ -21,7 +21,7 @@ def coloring(speed):
         return 'yellow'
     elif speed > 20:
         return 'orange'
-    elif speed > 0:
+    elif speed >= 0:
         return 'red'
 
 #create a popup

@@ -16,21 +16,21 @@ speed = list(data["Speed (MPH)"])
 date = list(data['LOCAL TIME'])
 date2 = list(data['LOCAL DATE'])
 
-fg = folium.FeatureGroup(name="Travel Time Map with Permanent Stamps")
+feature = folium.FeatureGroup(name = "Travel Time Map with Permanent Stamps")
 
 #change map center with the avg of the data
 map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start=12)
 
 #add a marker for each point, include permanent time stamp
-for lt, ln, sp, ti, dt in zip(lat, long, speed, date, date2):
-    fg.add_child(folium.CircleMarker(location=[lt, ln], radius = 4, tooltip=folium.Tooltip(text = dt + '' + ti),
-    fill_color=coloring(sp), color = coloring(sp), fill_opacity=0.7))
+for lt, ln, s, t, dt in zip(lat, long, speed, date, date2):
+    feature.add_child(folium.CircleMarker(location = [lt, ln], radius = 4, tooltip = folium.Tooltip(text = dt + '' + t),
+    fill_color = coloring(s), color = coloring(s), fill_opacity = 0.7))
 
 #call for legend
 map = create_legend(map , 'Speed - MPH',
                              colors = ['red','orange', 'yellow', '#98ebb0'],
                            labels = ['0-20', '21-40', '41-55', '55+'])
 #display data points on the map and export
-map.add_child(fg)
+map.add_child(feature)
 folium.LayerControl().add_to(map)
 map.save("map.html")
