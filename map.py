@@ -21,7 +21,7 @@ feature = folium.FeatureGroup(name = "Travel Time Map")
 #change map center with the avg of the data
 map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start = 12)
 
-#add a marker for each point, include permanent time stamp
+#add a marker for each point
 for lt, ln, s, t, dt in zip(lat, long, speed, date, date2):
     feature.add_child(folium.CircleMarker(location = [lt, ln], radius = 4, tooltip = folium.Tooltip(text = dt + '' + t),
     fill_color = coloring(s), color = coloring(s), fill_opacity = 0.7))
