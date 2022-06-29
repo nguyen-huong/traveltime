@@ -7,30 +7,36 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from tasks import *
 
-#change data path here
-data = read_data('data/data.csv')
+def get_timestamp(df):
+    """
+    Get the dataframe with timestamps and return a map with permanent timestamps
+    """
+    # change data path here
+    data = read_data(df)
 
-lat = list(data["LATITUDE"])
-long = list(data["LONGITUDE"])
-speed = list(data["Speed (MPH)"])
-date = list(data['LOCAL TIME'])
-date2 = list(data['LOCAL DATE'])
+    lat = list(data["LATITUDE"])
+    long = list(data["LONGITUDE"])
+    speed = list(data["Speed (MPH)"])
+    date = list(data['LOCAL TIME'])
+    date2 = list(data['LOCAL DATE'])
 
-feature = folium.FeatureGroup(name = "Travel Time Map with Permanent Stamps")
+    feature = folium.FeatureGroup(name="Travel Time Map with Permanent Stamps")
 
-#change map center with the avg of the data
-map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start = 12)
+    # change map center with the avg of the data
+    map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start=12)
 
-#add a marker for each point
-for lt, ln, s, t, dt in zip(lat, long, speed, date, date2):
-    feature.add_child(folium.CircleMarker(location = [lt, ln], radius = 4, tooltip = folium.Tooltip(permanent = True, text = dt + '' + t),
-    fill_color = coloring(s), color = coloring(s), fill_opacity = 0.7))
+    # add a marker for each point
+    for lt, ln, s, t, dt in zip(lat, long, speed, date, date2):
+        feature.add_child(
+            folium.CircleMarker(location=[lt, ln], radius=4, tooltip=folium.Tooltip(permanent=True, text=dt + '' + t),
+                                fill_color=coloring(s), color=coloring(s), fill_opacity=0.7))
 
-#call for legend
-map = create_legend(map , 'Speed - MPH',
-                             colors = ['red','orange', 'yellow', '#98ebb0'],
-                           labels = ['0-20', '21-40', '41-55', '55+'])
-#display data points on the map and export
-map.add_child(feature)
-folium.LayerControl().add_to(map)
-map.save("timestamp.html")
+    # call for legend
+    map = create_legend(map, 'Speed - MPH',
+                        colors=['red', 'orange', 'yellow', '#98ebb0'],
+                        labels=['0-20', '21-40', '41-55', '55+'])
+    # display data points on the map and export
+    map.add_child(feature)
+    folium.LayerControl().add_to(map)
+
+    return map
