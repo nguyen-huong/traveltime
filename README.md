@@ -27,7 +27,11 @@ save_map(map, name='map-name')
 ```
 ## Demo
 
-![Demo](https://user-images.githubusercontent.com/57471582/176513384-1d7ec1fd-21cf-4176-bc7d-49473e983a1d.mov)
+
+
+https://user-images.githubusercontent.com/57471582/176513571-2eacc8c5-477a-4d7f-b4d2-92cc1e1549cd.mov
+
+
 
 ## Issues
 
