@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 #load data
-def read_data(x):
-    data = pd.read_csv(x)
+def read_data(df):
+    data = pd.read_csv(df)
     data['LONGITUDE'] = -1 * data['LONGITUDE']
     data.Long = data['LONGITUDE']
     data.Lat = data['LATITUDE']
@@ -129,4 +129,11 @@ def create_legend(folium_map, title, colors, labels):
 
     folium_map.get_root().header.add_child(folium.Element(script + css))
 
+    return folium_map
+
+SAVE_PATH = './build/'
+
+#save map as html file in build folder
+def save_map(folium_map, name):
+    folium_map.save(SAVE_PATH + name + '.html')
     return folium_map
