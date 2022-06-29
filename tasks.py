@@ -31,7 +31,7 @@ def popup(i):
     time = data.iloc[i]["LOCAL TIME"]
     return date, time
 
-#documentation of gist: https://gist.github.com/ColinTalbert/18f8901fc98f109f2b71156cf3ac81cd
+#include gist to create legend
 def create_legend(folium_map, title, colors, labels):
     if len(colors) != len(labels):
         raise ValueError("colors and labels must have the same length.")
