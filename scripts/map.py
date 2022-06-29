@@ -29,7 +29,7 @@ def get_map(df):
 
     # add a marker for each point
     for lt, ln, s, t, dt in zip(lat, long, speed, date, date2):
-        feature.add_child(folium.CircleMarker(location=[lt, ln], radius=4, tooltip=folium.Tooltip(text=dt + '' + t),
+        feature.add_child(folium.CircleMarker(location=[lt, ln], radius=4, tooltip=folium.Tooltip(text=dt + ' ' + t),
                                               fill_color=coloring(s), color=coloring(s), fill_opacity=0.7))
 
     # call for legend
