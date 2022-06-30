@@ -7,7 +7,7 @@ Take in data input (.csv), generate heatmaps based on speed condition with print
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install all requirements
 
 ```bash
-pip install requirements.txt
+pip install -r /path/to/requirements.txt
 ```
 
 ## Usage
