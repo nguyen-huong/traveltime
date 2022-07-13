@@ -13,13 +13,16 @@ pip install -r /path/to/requirements.txt
 ## As Package
 
 ``` bash
-pip install map-arrow
+pip install traveltimemap
 ```
 
 ## As Library
 
 ```python
 import timestamp
+
+# returns heatmap with travel time statistics & direction
+map_direction('path/to/data.csv')
 
 # returns heatmap with travel time statistics
 get_timestamp('path/to/data.csv')

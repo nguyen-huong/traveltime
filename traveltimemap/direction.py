@@ -13,7 +13,7 @@ from tasks import *
 from timestamp import *
 from map import *
 
-def map_arrow(df):
+def map_direction(df):
     """
     Get the dataframe with timestamps and return a map with permanent timestamps
     """

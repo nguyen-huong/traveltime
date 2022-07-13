@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="traveltimemap",
-    version="0.0.1",
+    version="0.0.6",
     author="Huong Nguyen",
     author_email="huongmng@usc.edu",
     description="Travel Time Map",
@@ -13,6 +13,16 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/nguyen-huong/traveltime/",
     packages=setuptools.find_packages(),
+    install_requires=[
+        'folium',
+        'pandas',
+        'geopy',
+        'numpy',
+        'matplotlib',
+        'datetime',
+        'openpyxl',
+        'IPython',
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
