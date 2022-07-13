@@ -4,8 +4,13 @@ import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from branca.element import Template, MacroElement
+from IPython.core.display import display, HTML
+from direction import *
+from timestamp import *
 
-#load data
+
+# load data
 def read_data(df):
     data = pd.read_csv(df)
     data['LONGITUDE'] = -1 * data['LONGITUDE']
@@ -13,7 +18,8 @@ def read_data(df):
     data.Lat = data['LATITUDE']
     return data
 
-#return avg speed
+
+# return avg speed
 def mean_speed(df):
     data = read_data(df)
     speed = list(data['Speed (MPH)'])
@@ -21,10 +27,11 @@ def mean_speed(df):
     mean = 'Average Speed: ' + mean + ' mph'
     return mean
 
-#color the points by speed
+
+# color the points by speed
 def coloring(speed):
     if speed > 55:
-        return '#98ebb0'
+        return '#60f250'
     elif speed > 40:
         return 'yellow'
     elif speed > 20:
@@ -32,12 +39,14 @@ def coloring(speed):
     elif speed >= 0:
         return 'red'
 
-#create a popup based on date and time
+
+# create a popup based on date and time
 def popup(i):
-  for i in range(0,len(data)):
-    date = data.iloc[i]["LOCAL DATE"]
-    time = data.iloc[i]["LOCAL TIME"]
-    return date, time
+    for i in range(0, len(data)):
+        date = data.iloc[i]["LOCAL DATE"]
+        time = data.iloc[i]["LOCAL TIME"]
+        return date, time
+
 
 def print_time(df):
     data = read_data(df)
@@ -51,7 +60,8 @@ def print_time(df):
     str2 = 'Stop: ' + date_2 + ' ' + time_2
     return str1, str2
 
-#include gist to create legend
+
+# include gist to create legend
 def create_legend(folium_map, title, colors, labels):
     if len(colors) != len(labels):
         raise ValueError("colors and labels must have the same length.")
@@ -151,9 +161,9 @@ def create_legend(folium_map, title, colors, labels):
 
     return folium_map
 
-#create textbox on map
-def create_textbox(folium_map, title, text, stats):
 
+# create textbox on map
+def create_textbox(folium_map, title, text, stats):
     legend_html = f"""
     <div id='maplegend' class='maplegend'>
       <div class='legend-title'>{title}</div>
@@ -242,11 +252,119 @@ def create_textbox(folium_map, title, text, stats):
     return folium_map
 
 
+def create_arrow(folium_map):
+    template = """
+    {% macro html(this, kwargs) %}
+
+    <!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>jQuery UI Draggable - Default functionality</title>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+      <script>
+      $( function() {
+        $( "#maplegend" ).draggable({
+                        start: function (event, ui) {
+                            $(this).css({
+                                right: "auto",
+                                top: "auto",
+                                bottom: "auto"
+                            });
+                        }
+                    });
+    });
+
+      </script>
+    </head>
+    <body>
+
+
+    <div id='maplegend' class='maplegend' 
+        style='position: absolute; z-index:9999; border:2px solid grey; background-color:rgba(255, 255, 255, 0.4);
+        border-radius:1px; padding: 1px; font-size:14px; right: 1px; bottom: 1px;'>
+
+    <center><div class='scale'>
+    <h3>&#8595;</h3>
+    </div></center>
+    </div>
+
+    </body>
+    </html>
+
+    <style type='text/css'>
+      .maplegend .legend-title {
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 90%;
+        }
+      .maplegend .scale ul {
+        margin: 0;
+        margin-bottom: 5px;
+        padding: 0;
+        float: left;
+        list-style: none;
+        }
+      .maplegend .scale ul li {
+        font-size: 80%;
+        list-style: none;
+        margin-left: 0;
+        line-height: 18px;
+        margin-bottom: 2px;
+        }
+      .maplegend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 16px;
+        width: 30px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 1px solid #999;
+        }
+      .maplegend .legend-source {
+        font-size: 80%;
+        color: #777;
+        clear: both;
+        }
+      .maplegend a {
+        color: #777;
+        }
+    </style>
+    {% endmacro %}"""
+
+    macro = MacroElement()
+    macro._template = Template(template)
+
+    folium_map.get_root().add_child(macro)
+
+
 SAVE_PATH = './build/'
-#save map as html file in build folder
-#function: save_map(map, name='map')
+
+
+# save map as html file in build folder
+# function: save_map(map, name='map')
 def save_map(folium_map, name):
     folium_map.save(SAVE_PATH + name + '.html')
     return folium_map
 
 
+def compare():
+  map1 = input("Path to database1: ")
+  map2 = input("Path to database2: ")
+
+  map1 = map_arrow(map1)
+  map2 = map_arrow(map2)
+
+  from IPython.core.display import display, HTML
+
+  htmlmap = HTML('<iframe srcdoc="{}" style="float:left; width: {}px; height: {}px; display:inline-block; width: 50%; margin: 0 auto; border: 2px solid black"></iframe>'
+            '<iframe srcdoc="{}" style="float:right; width: {}px; height: {}px; display:inline-block; width: 50%; margin: 0 auto; border: 2px solid black"></iframe>'
+            .format(map1.get_root().render().replace('"', '&quot;'),400,400,
+                    map2.get_root().render().replace('"', '&quot;'),400,400))
+  display(htmlmap)
