@@ -1,4 +1,4 @@
-# Travel-time Maps by Speed
+# Travel-time Maps by Speed: Learning Project
 
 Take in data input (.csv), generate heatmaps based on speed condition with printed timestamps
 
@@ -8,6 +8,12 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install all req
 
 ```bash
 pip install -r /path/to/requirements.txt
+```
+
+## As Package
+
+``` bash
+pip install map-arrow
 ```
 
 ## As Library
@@ -28,18 +34,8 @@ save_map(map, name='map-name')
 ## Demo
 
 
-
-
-https://user-images.githubusercontent.com/57471582/176595709-a78326a6-de2c-412f-809e-7e7e5a83c923.mov
-
-
-
 <img width="1264" alt="demo" src="https://user-images.githubusercontent.com/57471582/176595645-f18a2bd1-1c49-4351-b8ff-4288aac4a9ec.png">
 
 
-
-## Issues
-
-Have a problem? Feedbacks? Create an issue [here](https://github.com/nguyen-huong/traveltime/issues)
 
 
