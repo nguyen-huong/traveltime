@@ -9,9 +9,9 @@ from datetime import datetime
 from geopy.distance import geodesic
 from math import atan
 import math
-from tasks import *
-from timestamp import *
-from map import *
+from traveltimemap.tasks import *
+# from tasks import *
+
 
 def map_direction(df):
     """
@@ -93,7 +93,11 @@ def map_direction(df):
     stati2 = datetime.strptime(time_2, '%H:%M:%S').strftime('%I:%M %p')
     str1 = 'Start: ' + date_1 + ' ' + stati1
     str2 = 'Stop: ' + date_2 + ' ' + stati2
-    dur = 'Duration: ' + str(difti.minute) + ' min ' + str(difti.second) + ' sec'
+    if difti.hour == 0:
+        dur = 'Duration: ' + str(difti.minute) + ' min ' + str(difti.second) + ' sec'
+    else:
+        dur = 'Duration: ' + str(difti.hour) + ' hours ' + str(difti.minute) + ' min ' + str(difti.second) + ' sec'
+
     str3 = str1 + '<br/>' + str2 + '<br/>' + dur
 
     # mean speed

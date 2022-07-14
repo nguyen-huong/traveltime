@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="traveltimemap",
-    version="0.0.6",
+    version="1.0.0",
     author="Huong Nguyen",
     author_email="huongmng@usc.edu",
     description="Travel Time Map",
@@ -22,6 +22,7 @@ setuptools.setup(
         'datetime',
         'openpyxl',
         'IPython',
+        'geopandas'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

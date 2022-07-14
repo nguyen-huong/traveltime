@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from datetime import datetime
 from geopy.distance import geodesic
+# from tasks import *
+from traveltimemap.tasks import *
 
 
 def get_timestamp(df):
@@ -35,7 +37,7 @@ def get_timestamp(df):
 
     # call for legend
     map = create_legend(map, 'Speed - MPH',
-                        colors=['red', 'orange', 'yellow', '#98ebb0'],
+                        colors=['red', 'orange', 'yellow', '#60f250'],
                         labels=['0-20', '21-40', '41-55', '55+'])
 
     # time stats
@@ -60,7 +62,11 @@ def get_timestamp(df):
     stati2 = datetime.strptime(time_2, '%H:%M:%S').strftime('%I:%M %p')
     str1 = 'Start: ' + date_1 + ' ' + stati1
     str2 = 'Stop: ' + date_2 + ' ' + stati2
-    dur = 'Duration: ' + str(difti.minute) + ' min ' + str(difti.second) + ' sec'
+    if difti.hour == 0:
+        dur = 'Duration: ' + str(difti.minute) + ' min ' + str(difti.second) + ' sec'
+    else:
+        dur = 'Duration: ' + str(difti.hour) + ' hours ' + str(difti.minute) + ' min ' + str(difti.second) + ' sec'
+
     str3 = str1 + '<br/>' + str2 + '<br/>' + dur
 
     # mean speed

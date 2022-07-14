@@ -5,7 +5,7 @@ import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from tasks import *
+from traveltimemap.tasks import *
 
 def get_map(df):
     """
@@ -34,7 +34,7 @@ def get_map(df):
 
     # call for legend
     map = create_legend(map, 'Speed - MPH',
-                        colors=['red', 'orange', 'yellow', '#98ebb0'],
+                        colors=['red', 'orange', 'yellow', '#60f250'],
                         labels=['0-20', '21-40', '41-55', '55+'])
     # display data points on the map and export
     map.add_child(feature)

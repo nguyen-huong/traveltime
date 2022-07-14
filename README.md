@@ -37,7 +37,7 @@ save_map(map, name='map-name')
 ## Demo
 
 
-<img width="1264" alt="demo" src="https://user-images.githubusercontent.com/57471582/176595645-f18a2bd1-1c49-4351-b8ff-4288aac4a9ec.png">
+<img width="1264" alt="demo" src="./demo.png">
 
 
 

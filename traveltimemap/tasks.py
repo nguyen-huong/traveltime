@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from branca.element import Template, MacroElement
 from IPython.core.display import display, HTML
-from direction import *
-from timestamp import *
+from traveltimemap.direction import *
+
 
 
 # load data
@@ -261,7 +261,6 @@ def create_arrow(folium_map):
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>jQuery UI Draggable - Default functionality</title>
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -344,7 +343,7 @@ def create_arrow(folium_map):
     folium_map.get_root().add_child(macro)
 
 
-SAVE_PATH = './build/'
+SAVE_PATH = './'
 
 
 # save map as html file in build folder
@@ -358,8 +357,8 @@ def compare():
   map1 = input("Path to database1: ")
   map2 = input("Path to database2: ")
 
-  map1 = map_arrow(map1)
-  map2 = map_arrow(map2)
+  map1 = map_direction(map1)
+  map2 = map_direction(map2)
 
   from IPython.core.display import display, HTML
 
