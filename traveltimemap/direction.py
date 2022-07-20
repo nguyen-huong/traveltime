@@ -9,9 +9,15 @@ from datetime import datetime
 from geopy.distance import geodesic
 from math import atan
 import math
-from traveltimemap.tasks import *
 # from tasks import *
+from traveltimemap.tasks import *
 
+def read_data(df):
+    data = pd.read_csv(df)
+    data['LONGITUDE'] = -1 * data['LONGITUDE']
+    data.Long = data['LONGITUDE']
+    data.Lat = data['LATITUDE']
+    return data
 
 def map_direction(df):
     """
@@ -29,7 +35,7 @@ def map_direction(df):
     feature = folium.FeatureGroup(name="Travel Time Map with Permanent Stamps")
 
     # change map center with the avg of the data
-    map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start=12)
+    map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start=12, tiles='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', attr='CartoDB.Voyager')
 
     # #add arrow
     # la1 = lat[0]
@@ -54,9 +60,23 @@ def map_direction(df):
             folium.CircleMarker(location=[lt, ln], radius=.7, tooltip=folium.Tooltip(text=dt + ' ' + t),
                                 fill_color=coloring(s), color=coloring(s), fill_opacity=0.7))
 
+
+    # markers
+    text = folium.Html('<b>Direction</b>', script=True)
+    popup = folium.Popup(text, max_width=2600)
+    lat_diff = lat[-1] - lat[0]
+    lon_diff = long[-1] - long[0]
+    folium.RegularPolygonMarker(location=(data.Lat.mean(), data.Long.mean()), popup = popup, fill_color='red', number_of_sides=3,
+                                radius=10, rotation=(math.degrees(
+            (lat_diff / lon_diff)))).add_to(map)
+
+    folium.Marker(location=[33.89212744151436, -117.50632763273958], popup='<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/I-15.svg/1200px-I-15.svg.png" width="50" height="50">', icon=folium.Icon(color='red')).add_to(map)
+    folium.Marker(location=[33.92182711328787, -117.55013228351774], popup='<img src="https://www.paytollo.com/static/images/toll-roads/california/SR-91.png" width="50" height="50">', icon=folium.Icon(color='red')).add_to(map)
+
+
     # add arrow
-    create_arrow(map)
-    plugins.ScrollZoomToggler().add_to(map)
+    # create_arrow(map)
+    # plugins.ScrollZoomToggler().add_to(map)
 
     # call for legend
     map = create_legend(map, 'Speed - MPH',
@@ -127,3 +147,18 @@ def map_direction(df):
     folium.LayerControl().add_to(map)
 
     return map
+
+def compare():
+  map1 = input("Path to database1: ")
+  map2 = input("Path to database2: ")
+
+  map1 = map_direction(map1)
+  map2 = map_direction(map2)
+
+  from IPython.core.display import display, HTML
+
+  htmlmap = HTML('<iframe srcdoc="{}" style="float:left; width: {}px; height: {}px; display:inline-block; width: 50%; margin: 0 auto; border: 2px solid black"></iframe>'
+            '<iframe srcdoc="{}" style="float:right; width: {}px; height: {}px; display:inline-block; width: 50%; margin: 0 auto; border: 2px solid black"></iframe>'
+            .format(map1.get_root().render().replace('"', '&quot;'),400,400,
+                    map2.get_root().render().replace('"', '&quot;'),400,400))
+  display(htmlmap)

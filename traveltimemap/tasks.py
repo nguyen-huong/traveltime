@@ -5,8 +5,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from branca.element import Template, MacroElement
-from IPython.core.display import display, HTML
-from traveltimemap.direction import *
+from IPython.core.display import display,HTML
 
 
 
@@ -352,18 +351,3 @@ def save_map(folium_map, name):
     folium_map.save(SAVE_PATH + name + '.html')
     return folium_map
 
-
-def compare():
-  map1 = input("Path to database1: ")
-  map2 = input("Path to database2: ")
-
-  map1 = map_direction(map1)
-  map2 = map_direction(map2)
-
-  from IPython.core.display import display, HTML
-
-  htmlmap = HTML('<iframe srcdoc="{}" style="float:left; width: {}px; height: {}px; display:inline-block; width: 50%; margin: 0 auto; border: 2px solid black"></iframe>'
-            '<iframe srcdoc="{}" style="float:right; width: {}px; height: {}px; display:inline-block; width: 50%; margin: 0 auto; border: 2px solid black"></iframe>'
-            .format(map1.get_root().render().replace('"', '&quot;'),400,400,
-                    map2.get_root().render().replace('"', '&quot;'),400,400))
-  display(htmlmap)

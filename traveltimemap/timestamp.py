@@ -11,6 +11,7 @@ from geopy.distance import geodesic
 from traveltimemap.tasks import *
 
 
+
 def get_timestamp(df):
     """
     Get the dataframe with timestamps and return a map with permanent timestamps
@@ -27,12 +28,12 @@ def get_timestamp(df):
     feature = folium.FeatureGroup(name="Travel Time Map with Permanent Stamps")
 
     # change map center with the avg of the data
-    map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start=12)
+    map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start=12, tiles='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', attr='CartoDB.Voyager')
 
     # add a marker for each point
     for lt, ln, s, t, dt in zip(lat, long, speed, date, date2):
         feature.add_child(
-            folium.CircleMarker(location=[lt, ln], radius=4, tooltip=folium.Tooltip(text=dt + ' ' + t),
+            folium.CircleMarker(location=[lt, ln], radius=.7, tooltip=folium.Tooltip(text=dt + ' ' + t),
                                 fill_color=coloring(s), color=coloring(s), fill_opacity=0.7))
 
     # call for legend

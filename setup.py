@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="traveltimemap",
-    version="1.0.0",
+    version="1.0.7",
     author="Huong Nguyen",
     author_email="huongmng@usc.edu",
     description="Travel Time Map",

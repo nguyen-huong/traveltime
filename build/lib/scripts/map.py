@@ -25,7 +25,9 @@ def get_map(df):
     feature = folium.FeatureGroup(name="Travel Time Map")
 
     # change map center with the avg of the data
-    map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start=12)
+    map = folium.Map([data.Lat.mean(), data.Long.mean()], zoom_start=12,
+                     tiles='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+                     attr='CartoDB.Voyager')
 
     # add a marker for each point
     for lt, ln, s, t, dt in zip(lat, long, speed, date, date2):
