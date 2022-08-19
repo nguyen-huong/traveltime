@@ -15,6 +15,9 @@ pip install -r /path/to/requirements.txt
 ``` bash
 pip install traveltimemap
 ```
+Package link: https://pypi.org/project/traveltimemap/
+Sample how it works: finaldemo.ipynb
+
 
 ## As Library
 
