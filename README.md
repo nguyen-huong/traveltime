@@ -18,6 +18,7 @@ pip install traveltimemap
 - Package link: https://pypi.org/project/traveltimemap/
 - Sample how it works: finaldemo.ipynb
 - View sample online: https://colab.research.google.com/drive/15GCqZyHMS0idjBUPLVIplKTQc8U4MYdK?usp=sharing
+- Email: huongmng@usc.edu
 
 
 ## As Library
